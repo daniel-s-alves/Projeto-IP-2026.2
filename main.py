@@ -1,4 +1,5 @@
 import pygame
+from counters import criar_contadores
 from tela_inicial import tela_inicial
 
 pygame.init()
@@ -12,6 +13,7 @@ tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("CinCabeçada")
 
 tela_atual = "inicial"
+colecionaveis = criar_contadores()
 
 while tela_atual != "sair":
     if tela_atual == "inicial":

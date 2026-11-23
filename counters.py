@@ -2,6 +2,13 @@
 
 import time
 
+def criar_contadores():
+    return {
+        "redbull": 0,
+        "lata_de_pitu": 0,
+        "luva_de_boxe": 0,
+    }
+
 def Iniciar_Jogo():
 
     Jogo_finalizado = False
@@ -18,4 +25,5 @@ def Iniciar_Jogo():
     Jogo_finalizado = True
 
 # Função Iniciar jogo
-Iniciar_Jogo()
+if __name__ == "__main__":
+    Iniciar_Jogo()
