@@ -1,5 +1,19 @@
 import pygame
 
+CONTROLES_JOGADOR_1 = {
+    "pular": pygame.K_w,
+    "esquerda": pygame.K_a,
+    "direita": pygame.K_d,
+    "baixo": pygame.K_s,
+}
+
+CONTROLES_JOGADOR_2 = {
+    "pular": pygame.K_UP,
+    "esquerda": pygame.K_LEFT,
+    "direita": pygame.K_RIGHT,
+    "baixo": pygame.K_DOWN,
+}
+
 def carregar_personagem(arquivo, altura, virar):
     imagem = pygame.image.load("personagens/" + arquivo).convert_alpha()
 
