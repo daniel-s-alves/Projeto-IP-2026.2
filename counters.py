@@ -9,7 +9,12 @@ def criar_contadores():
         "luva_de_boxe": 0,
     }
 
+def criar_placar():
+    return {"jogador_1": 0, "jogador_2": 0}
+
 def Iniciar_Jogo():
+    placar = criar_placar()
+    print(f"Placar inicial: {placar['jogador_1']} a {placar['jogador_2']}")
 
     Jogo_finalizado = False
     
