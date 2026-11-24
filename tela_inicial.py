@@ -8,7 +8,7 @@ branco = (255, 255, 255)
 azul_escuro = (25, 25, 100)
 dourado = (240, 190, 50)
 cinza_claro = (240, 240, 250)
-cinza_escuro = (160, 160, 185)
+cinza_escuro = (160, 160, 186)
 
 #imagem de fundo
 arquivo_fundo = "cenarios/imagem_fundo_tela_inicial.png"
