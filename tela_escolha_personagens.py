@@ -1,12 +1,13 @@
 import pygame
+import functions
 from functions import carregar_cabeca, carregar_cadeado, carregar_icone, carregar_fundo
 from functions import criar_silhueta
-from button import desenhar_botao_seta
+from button import desenhar_botao_seta, criar_botoes_iniciais
 
 #cores que serao utilizadas
 branco = (255, 255, 255)
 azul_escuro = (18, 35, 91)
-cinza_nome = (192, 192, 200)
+vermelho_nome = (200, 30, 30)
 cores_jogadores = [(40, 110, 230), (220, 60, 60)] # cor vermelha para o jogador 1 e cor azul pro jogador 2
 
 #IMAGENS
@@ -14,6 +15,8 @@ arquivo_fundo = "cenarios/fundo_escolha_personagens.png"
 arquivo_cadeado = "icones_telas/cadeado.png"
 arquivo_seta_voltar = "voltar.png"
 arquivo_seta_avancar = "avancar.png"
+arquivo_som_ligado = "audio_ligado.png"
+arquivo_som_desligado = "audio_desligado.png"
 
 aumento = 1.12     #efeito de a cabeça crescer quando o mouse passar em cima
 
@@ -35,6 +38,22 @@ lista_personagens = [
     ("manuel_gomes", True, 0.79),
     ("papai_noel", True, 0.73),
 ]
+nomes_na_tela = {
+    "personagem_base_1": "Um cara qualquer 1",
+    "personagem_base_2": "Um cara qualquer 2",
+    "personagem_base_3": "Um cara qualquer 3",
+    "personagem_base_4": "Um cara qualquer 4",
+    "personagem_base_5": "Um cara qualquer 5",
+    "bolsonaro": "Bolsonaro",
+    "claude": "Claude",
+    "duque": "Duque",
+    "elon_musk": "Elon Musk",
+    "jane": "Patrick Jane",
+    "lalo": "Lalo",
+    "lula": "Lula",
+    "manuel_gomes": "Manuel Gomes",
+    "papai_noel": "Papai Noel",
+}
 
 def tela_personagem(tela):
     largura = tela.get_width()
@@ -50,12 +69,15 @@ def tela_personagem(tela):
     botao_voltar = pygame.Rect(23, 21, 80, 80)
     botao_avancar = pygame.Rect(0, 0, 80, 80)
     botao_avancar.center = (largura // 2, altura - 70)
+    botao_jogar, botao_loja, botao_som = criar_botoes_iniciais(largura)
 
     #IMAGENS:
     fundo = carregar_fundo(arquivo_fundo, largura, altura)
     cadeado = carregar_cadeado(arquivo_cadeado, 50)
     seta_voltar = carregar_icone(arquivo_seta_voltar, 45)
     seta_avancar = carregar_icone(arquivo_seta_avancar, 45)
+    icone_som_ligado = carregar_icone(arquivo_som_ligado, 50)
+    icone_som_desligado = carregar_icone(arquivo_som_desligado, 50)
 
     #titulos:
     titulos = [
@@ -87,9 +109,9 @@ def tela_personagem(tela):
         imagem = carregar_cabeca(nome + ".png", parte_de_cima, 170, 137)
         if bloqueado:
             imagem = criar_silhueta(imagem)
-            texto = fonte_nome.render(nome, True, cinza_nome)
+            texto = fonte_nome.render(nomes_na_tela[nome], True, vermelho_nome)
         else:
-            texto = fonte_nome.render(nome, True, azul_escuro)
+            texto = fonte_nome.render(nomes_na_tela[nome], True, azul_escuro)
 
         # Cabeça um pouco maior, usada quando o mouse está em cima
         nova_largura = int(imagem.get_width() * aumento)
@@ -120,7 +142,10 @@ def tela_personagem(tela):
                 return "sair", None
 
             if evento.type == pygame.MOUSEBUTTONDOWN:
-                if botao_voltar.collidepoint(evento.pos):
+                if botao_som.collidepoint(evento.pos):
+                    functions.alternar_musica()
+
+                elif botao_voltar.collidepoint(evento.pos):
                     # Se já escolheram alguém, desfaz a última escolha
                     if len(escolhidos) == 0:
                         return "voltar", None
@@ -143,6 +168,14 @@ def tela_personagem(tela):
 
         # Botão de voltar
         desenhar_botao_seta(tela, botao_voltar, mouse, seta_voltar)
+
+        #botao de som: mostra o icone de ligado ou desligado
+        if functions.musica_ligada:
+            icone_som = icone_som_ligado
+        else:
+            icone_som = icone_som_desligado
+
+        desenhar_botao_seta(tela, botao_som, mouse, icone_som)
 
         #personagens:
         for carta in cartas:

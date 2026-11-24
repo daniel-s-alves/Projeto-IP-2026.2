@@ -1,4 +1,5 @@
 import pygame
+import functions
 from functions import carregar_personagem, carregar_icone
 from button import criar_botoes_iniciais
 
@@ -57,10 +58,12 @@ def tela_inicial(tela):
     icone_som_desligado = carregar_icone("audio_desligado.png", 50)
 
     # Música de fundo
-    musica_ligada = True
     pygame.mixer.music.load("music/musica_menu.mp3")
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)     #irá se repetir para sempre
+
+    if not functions.musica_ligada:     #se o jogador silenciar a musica
+        pygame.mixer.music.pause()
 
     while True:     #manterá a tela para sempre rodando
         mouse = pygame.mouse.get_pos()  #mostrara o mouse
@@ -78,12 +81,7 @@ def tela_inicial(tela):
                     return "loja"
 
                 if botao_som.collidepoint(evento.pos):      #quer tirar o som do jogo
-                    if musica_ligada:
-                        pygame.mixer.music.pause()
-                        musica_ligada = False
-                    else:
-                        pygame.mixer.music.unpause()
-                        musica_ligada = True
+                    functions.alternar_musica()
 
         #Fundo
         tela.blit(fundo, (0, 0))    #definindo fundo quando inicia a tela
@@ -124,7 +122,7 @@ def tela_inicial(tela):
         else:
             cor = cinza_claro
         pygame.draw.rect(tela, cor, botao_som, border_radius=15)
-        if musica_ligada:
+        if functions.musica_ligada:
             icone = icone_som_ligado
         else:
             icone = icone_som_desligado

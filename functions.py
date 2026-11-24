@@ -85,3 +85,16 @@ def carregar_cadeado(caminho, altura):
     largura = int(imagem.get_width() * altura / imagem.get_height())
     imagem = pygame.transform.smoothscale(imagem, (largura, altura))
     return imagem
+
+#---------------SOM------------------
+musica_ligada = True
+
+def alternar_musica():
+    #liga ou desliga a musica
+    global musica_ligada
+    if musica_ligada:
+        pygame.mixer.music.pause()
+        musica_ligada = False
+    else:
+        pygame.mixer.music.unpause()
+        musica_ligada = True
