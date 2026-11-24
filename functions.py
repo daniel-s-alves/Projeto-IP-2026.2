@@ -88,13 +88,15 @@ def carregar_cadeado(caminho, altura):
 
 #---------------SOM------------------
 musica_ligada = True
+VOLUME_MUSICA = 0.5
+
+def aplicar_volume():
+    if musica_ligada:
+        pygame.mixer.music.set_volume(VOLUME_MUSICA)
+    else:
+        pygame.mixer.music.set_volume(0)
 
 def alternar_musica():
-    #liga ou desliga a musica
     global musica_ligada
-    if musica_ligada:
-        pygame.mixer.music.pause()
-        musica_ligada = False
-    else:
-        pygame.mixer.music.unpause()
-        musica_ligada = True
+    musica_ligada = not musica_ligada
+    aplicar_volume()

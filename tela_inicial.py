@@ -58,12 +58,10 @@ def tela_inicial(tela):
     icone_som_desligado = carregar_icone("audio_desligado.png", 50)
 
     # Música de fundo
-    pygame.mixer.music.load("music/musica_menu.mp3")
-    pygame.mixer.music.set_volume(0.5)
-    pygame.mixer.music.play(-1)     #irá se repetir para sempre
-
-    if not functions.musica_ligada:     #se o jogador silenciar a musica
-        pygame.mixer.music.pause()
+    if not pygame.mixer.music.get_busy():
+        pygame.mixer.music.load("music/musica_menu.mp3")
+        pygame.mixer.music.play(-1)
+    functions.aplicar_volume()
 
     while True:     #manterá a tela para sempre rodando
         mouse = pygame.mouse.get_pos()  #mostrara o mouse
