@@ -7,14 +7,13 @@ from button import desenhar_botao_seta
 branco = (255, 255, 255)
 azul_escuro = (18, 35, 91)
 cinza_nome = (192, 192, 200)
-cinza_contorno = (48, 48, 64)
 cores_jogadores = [(40, 110, 230), (220, 60, 60)] # cor vermelha para o jogador 1 e cor azul pro jogador 2
 
 #IMAGENS
 arquivo_fundo = "cenarios/fundo_escolha_personagens.png"
 arquivo_cadeado = "icones_telas/cadeado.png"
-arquivo_seta_voltar = "icones_telas/voltar.png"
-arquivo_seta_avancar = "icones_telas/avancar.png"
+arquivo_seta_voltar = "voltar.png"
+arquivo_seta_avancar = "avancar.png"
 
 aumento = 1.12     #efeito de a cabeça crescer quando o mouse passar em cima
 
@@ -174,6 +173,6 @@ def tela_personagem(tela):
         #Seta para continuar so aparecer depois de escolher dois personagens
         if len(escolhidos) == 2:
             desenhar_botao_seta(tela, botao_avancar, mouse, seta_avancar)
-            pygame.display.update()
 
+        pygame.display.update()
         relogio.tick(60)
