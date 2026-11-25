@@ -86,6 +86,62 @@ def carregar_cadeado(caminho, altura):
     imagem = pygame.transform.smoothscale(imagem, (largura, altura))
     return imagem
 
+#-------------FUNCOES TELA 3--------------------
+#carta dos mapas
+branco = (255, 255, 255)
+azul_escuro = (25, 25, 100)
+dourado = (240, 190, 50)
+cinza_claro = (240, 240, 250)
+cinza_hover = (140, 140, 170)
+
+#carta sera usada para termos as informações de cada mapa, como imagem, texto, moldura e rotulo
+def criar_carta_mapa(numero, id_mapa, nome, arquivo, fonte):
+    x = 52 + 400 * numero
+    moldura = pygame.Rect(x, 262, 376, 220) #imagem
+    rotulo = pygame.Rect(x, 494, 376, 54)   #nome do mapa
+
+    #imagem do mapa
+    imagem = carregar_fundo(arquivo, 364, 208)
+    texto = fonte.render(nome, True, azul_escuro)
+
+    #versao mais escura da imagem (usada quando o mouse esta em cima)
+    imagem_escura = imagem.copy()
+    imagem_escura.fill((150, 150, 150), special_flags=pygame.BLEND_RGB_MULT)
+
+    carta = {
+        "id": id_mapa,
+        "imagem": imagem,
+        "imagem_escura": imagem_escura,
+        "texto": texto,
+        "moldura": moldura,
+        "rotulo": rotulo,
+    }
+    return carta
+
+#e a desenhar_carta_mapa ira servir para desenharmos na tela um do lado do outro
+def desenhar_carta_mapa(tela, carta, escolhido, mouse):
+    imagem = carta["imagem"]
+    if escolhido:
+        cor_moldura = dourado
+        cor_rotulo = dourado
+    elif carta["moldura"].collidepoint(mouse) or carta["rotulo"].collidepoint(mouse):
+        cor_moldura = cinza_hover
+        cor_rotulo = cinza_hover
+        imagem = carta["imagem_escura"]
+    else:
+        cor_moldura = branco
+        cor_rotulo = cinza_claro
+
+    #imagem do mapa
+    pygame.draw.rect(tela, cor_moldura, carta["moldura"], border_radius=15)
+    tela.blit(imagem, imagem.get_rect(center=carta["moldura"].center))
+    pygame.draw.rect(tela, azul_escuro, carta["moldura"], 5, border_radius=15)
+
+    #nome do mapa
+    pygame.draw.rect(tela, cor_rotulo, carta["rotulo"], border_radius=15)
+    pygame.draw.rect(tela, azul_escuro, carta["rotulo"], 4, border_radius=15)
+    tela.blit(carta["texto"], carta["texto"].get_rect(center=carta["rotulo"].center))
+
 #---------------SOM------------------
 musica_ligada = True
 VOLUME_MUSICA = 0.5
