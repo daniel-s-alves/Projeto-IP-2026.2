@@ -2,6 +2,8 @@
 
 import time
 
+DURACAO_PARTIDA = 90
+
 def criar_contadores():
     return {
         "redbull": 0,
@@ -18,7 +20,7 @@ def Iniciar_Jogo():
 
     Jogo_finalizado = False
     
-    for segundos in range(90, -1, -1):  # Começando de 90s até 0
+    for segundos in range(DURACAO_PARTIDA, -1, -1):
 
         # O '\r' faz o contador atualizar na mesma linha do terminal
         print(f"\rTempo restante: {segundos:02d}s ", end="", flush=True)

@@ -14,11 +14,11 @@ CONTROLES_JOGADOR_2 = {
     "baixo": pygame.K_DOWN,
 }
 
-def carregar_personagem(arquivo, altura, virar):
+def carregar_personagem(arquivo, altura, virar, alpha_minimo=1):
     imagem = pygame.image.load("personagens/" + arquivo).convert_alpha()
 
     #corta o espaço vazio em volta da imagem:
-    imagem = imagem.subsurface(imagem.get_bounding_rect()).copy()
+    imagem = imagem.subsurface(imagem.get_bounding_rect(alpha_minimo)).copy()
 
     #vira o personagem de lado:
     if virar:

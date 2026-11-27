@@ -3,6 +3,7 @@ from counters import criar_contadores
 from tela_inicial import tela_inicial
 from tela_escolha_personagens import tela_personagem
 from tela_escolha_mapas import tela_mapas
+from tela_partida import tela_partida
 
 pygame.init()
 pygame.mixer.init()
@@ -50,7 +51,7 @@ while tela_atual != "sair":
             tela_atual = "partida"
 
     elif tela_atual == "partida":
-        """ATENCAO AQUI FICARA A TELA DO JOGO, A PARTIDA E AS CONDICOES DE VITORIA/DERROTA"""
+        tela_atual = tela_partida(tela, jogador1, jogador2, mapa_escolhido, colecionaveis)
 
     elif tela_atual == "loja":
         """ATENÇÃO AQUI FICARÁ A TELA DA LOJA, DE COMPRAR AS SKINS COM OS COLECIONAVEIS"""
